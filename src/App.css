@@ -40,3 +40,23 @@
 .read-the-docs {
   color: #888;
 }
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  background-color: #fff;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Lora', serif;
+  letter-spacing: 0.5px;
+}
+
+a {
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b28c64;
+}
