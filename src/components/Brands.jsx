@@ -1,4 +1,6 @@
 import React from "react";
+import BrandsCarousel from "./BrandsCarousel";
+import "./Brands.css";
 
 export default function Brands() {
   const brands = [
@@ -10,15 +12,9 @@ export default function Brands() {
 
   return (
     <section className="brands">
-      <h2>Our Premium Brands</h2>
-      <div className="brands__grid">
-        {brands.map((brand, index) => (
-          <div key={index} className="brand-card">
-            <img src={brand.logo} alt={brand.name} />
-            <h3>{brand.name}</h3>
-          </div>
-        ))}
-      </div>
+      <h2>Algunas de Nuestras Marcas Exclusivas</h2>
+
+      <BrandsCarousel />
     </section>
   );
 }

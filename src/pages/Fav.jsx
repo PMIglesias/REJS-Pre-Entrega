@@ -13,7 +13,7 @@ export default function Fav() {
       ) : (
         <div className="products-container">
           {favorites.map((product) => (
-            <ProductCard key={product.url} product={product} />
+            <ProductCard key={product.id || product.url} product={product} />
           ))}
         </div>
       )}

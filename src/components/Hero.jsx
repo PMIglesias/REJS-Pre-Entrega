@@ -1,52 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import hero1 from "../assets/img/SP_autumn_special_Stage_Stage_mobile_50_-_3_2200x.webp";
+import hero2 from "../assets/img/SP_FS_25_Stage_Stage_mobile_april_w19_00cc4a6a-64de-4fa0-bc3e-74773652f616_2200x.webp";
 
-const images = [
-  "/brands/hero_1.jpg",
-  "/brands/hero_2.jpg"
-];
+const images = [hero1, hero2];
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const autoplayMs = 8000;
 
-  const nextSlide = () => setCurrent((current + 1) % images.length);
-  const prevSlide = () => setCurrent((current - 1 + images.length) % images.length);
+  useEffect(() => {
+    const id = setInterval(() => setCurrent((c) => (c + 1) % images.length), autoplayMs);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <section className="hero">
-      <div className="hero__carousel">
-        <img
-          src={images[current]}
-          alt={`Hero ${current + 1}`}
-          className="hero__img"
-        />
-        <button className="hero__carousel-btn left" onClick={prevSlide}>&lt;</button>
-        <button className="hero__carousel-btn right" onClick={nextSlide}>&gt;</button>
-        <div className="hero__carousel-dots">
-          {images.map((_, idx) => (
-            <span
-              key={idx}
-              className={"hero__dot" + (idx === current ? " active" : "")}
-              onClick={() => setCurrent(idx)}
-            />
-          ))}
-        </div>
+      <div className="hero__slides">
+        {images.map((src, idx) => (
+          <div key={idx} className={`hero__slide ${idx === current ? "is-active" : ""}`}>
+            <img src={src} alt={`Slide ${idx + 1}`} />
+          </div>
+        ))}
       </div>
+
       <div className="hero__content">
-        <h1 className="hero__title">Autumn Special</h1>
-        <p className="hero__subtitle">Now up to 50% off autumn styles</p>
-        <button className="hero__button">Discover now</button>
-        <div className="hero__brands">
-          <div className="hero__brand">
-            <img src="/brands/heinrich-dinkelacker.png" alt="Heinrich Dinkelacker" />
-          </div>
-          <div className="hero__brand">
-            <img src="/brands/1991.png" alt="1991" />
-          </div>
-          <div className="hero__brand">
-            <img src="/brands/henry-stevens.png" alt="Henry Stevens" />
+        <div className="SectionHeader hero__centered">
+          <h2 className="custom_sileder_title">Autumn Special</h2>
+          <h3 className="custom_sileder_subheader">Now up to 50% off autumn styles</h3>
+          <div className="SectionHeader__ButtonWrapper">
+            <div className="ButtonGroup ButtonGroup--spacingSmall">
+              <a href="/collections/autumn-special-herrenschuhe" className="custom_button ButtonGroup__Item Button Button--primary">Discover now</a>
+            </div>
           </div>
         </div>
       </div>
+
+      <ol className="flickity-page-dots">
+        {images.map((_, idx) => (
+          <li key={idx} className={`dot ${idx === current ? "is-selected" : ""}`} onClick={() => setCurrent(idx)} />
+        ))}
+      </ol>
     </section>
   );
 }

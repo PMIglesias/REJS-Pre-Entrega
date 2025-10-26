@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
   const navigate = useNavigate();
 
-  // Función para extraer el número del precio
   const extractPrice = (price) => {
     if (typeof price === 'number') return price;
     if (typeof price === 'string') {
@@ -37,30 +36,34 @@ export default function CartPage() {
 
         <div className="cart-items">
           {cart.map((item) => (
-            <div key={item.url} className="cart-item">
-              <img src={item.img[0]} alt={item.title_es} className="cart-item__image" />
-              
+            <div key={item.id || item.url} className="cart-item">
+              <Link to={`/producto/${encodeURIComponent(item.id || item.url)}`}>
+                <img src={item.img[0]} alt={item.title_es} className="cart-item__image" />
+              </Link>
+
               <div className="cart-item__info">
-                <h3>{item.title_es}</h3>
+                <h3>
+                  <Link to={`/producto/${encodeURIComponent(item.id || item.url)}`}>{item.title_es}</Link>
+                </h3>
                 <p className="cart-item__vendor">{item.vendor}</p>
               </div>
 
               <div className="cart-item__quantity">
-                <button onClick={() => updateQuantity(item.url, item.quantity - 1)}>
+                <button onClick={() => updateQuantity(item.id || item.url, item.quantity - 1)}>
                   -
                 </button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.url, item.quantity + 1)}>
+                <button onClick={() => updateQuantity(item.id || item.url, item.quantity + 1)}>
                   +
                 </button>
               </div>
 
               <div className="cart-item__price">
-                <p>${(item.price * item.quantity).toFixed(2)}</p>
+                <p>{'Precio $' + (extractPrice(item.price) * item.quantity).toFixed(2)}</p>
               </div>
 
               <button
-                onClick={() => removeFromCart(item.url)}
+                onClick={() => removeFromCart(item.id || item.url)}
                 className="cart-item__remove"
               >
                 ✕
@@ -72,7 +75,7 @@ export default function CartPage() {
         <div className="cart-summary">
           <div className="cart-summary__total">
             <h3>Total:</h3>
-            <h2>${getCartTotal().toFixed(2)}</h2>
+            <h2>{'Precio $' + getCartTotal().toFixed(2)}</h2>
           </div>
           
           <button className="btn-primary btn-checkout">

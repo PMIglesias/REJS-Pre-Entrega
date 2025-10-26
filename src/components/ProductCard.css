@@ -15,7 +15,6 @@
 
 .image-container {
   width: 100%;
-  aspect-ratio: 1 / 1;
   overflow: hidden;
   position: relative;
 }
@@ -26,7 +25,6 @@
   object-fit: cover;
 }
 
-/* Botón de favorito */
 .fav-btn {
   position: absolute;
   top: 12px;
@@ -42,20 +40,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  /* Hidden by default (unless active) */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
-/* Show empty heart on hover for non-favorites */
 .product-card:hover .fav-btn {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
 
-/* Keep visible when it's a favorite */
 .fav-btn.active {
   opacity: 1;
   visibility: visible;
@@ -96,7 +91,7 @@
   margin-bottom: 0.5rem;
 }
 
-button {
+.product-card .add-to-cart {
   border: none;
   background-color: #1a1a1a;
   color: white;
@@ -107,6 +102,6 @@ button {
   letter-spacing: 1px;
 }
 
-button:hover {
+.product-card .add-to-cart:hover {
   background-color: #b28c64;
 }

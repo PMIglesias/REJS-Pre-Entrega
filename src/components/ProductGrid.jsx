@@ -8,13 +8,13 @@ export default function ProductGrid() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/data/catalog_shoes_store_es.json")
+    fetch("/data/catalog_shoes_store.json")
       .then((res) => {
         if (!res.ok) throw new Error("Error al cargar productos");
         return res.json();
       })
       .then((data) => {
-        setProducts(data.slice(0, 6)); // Mostrar solo 6 productos en home
+        setProducts(data.slice(0, 6)); 
         setLoading(false);
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ export default function ProductGrid() {
       <h2>Men's Collection</h2>
       <div className="products__grid">
         {products.map((item) => (
-          <ProductCard key={item.url} product={item} />
+          <ProductCard key={item.id || item.url} product={item} />
         ))}
       </div>
       <div className="products__view-all">

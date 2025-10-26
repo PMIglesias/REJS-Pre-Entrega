@@ -1,12 +1,11 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useCart();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    // Redirigir a login si no está autenticado
     return <Navigate to="/login" replace />;
   }
 

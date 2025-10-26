@@ -15,16 +15,17 @@ export const FavProvider = ({ children }) => {
 
   const toggleFavorite = (product) => {
     setFavorites((prev) => {
-      const exists = prev.find((item) => item.url === product.url);
+      const id = product.id || product.url;
+      const exists = prev.find((item) => (item.id && item.id === id) || item.url === id);
       if (exists) {
-        return prev.filter((item) => item.url !== product.url);
+        return prev.filter((item) => !((item.id && item.id === id) || item.url === id));
       }
       return [...prev, product];
     });
   };
 
-  const isFavorite = (productUrl) => {
-    return favorites.some((item) => item.url === productUrl);
+  const isFavorite = (productIdOrUrl) => {
+    return favorites.some((item) => (item.id && item.id === productIdOrUrl) || item.url === productIdOrUrl);
   };
 
   return (
